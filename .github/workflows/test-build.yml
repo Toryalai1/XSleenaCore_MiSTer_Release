@@ -33,6 +33,19 @@ jobs:
       ##########################################################################
       - name: Run compilation flow
         run: quartus_sh --flow compile Arcade-XSleenaCore.qpf
+        
+        # 5 - Get current version for tagging
+      - name: Get the version
+        id: version
+        run: echo "::set-output name=version::$(date +'%Y%m%d')"
+        
+        # 6 - Copy Artifacts
+      - name: Create a copy and tag with version
+        run: |
+          mkdir -p release
+          cp project/output_files/Arcade-XSleenaCore.rbf releases/Arcade-XSleenaCore_${{ steps.version.outputs.version }}.rbf
+          cp project/output_files/Arcade-XSleenaCore.fit.summary releases/Arcade-XSleenaCore.fit_${{ steps.version.outputs.version }}.txt
+          
       ##########################################################################
       # 3 - Upload artifacts
       ##########################################################################
