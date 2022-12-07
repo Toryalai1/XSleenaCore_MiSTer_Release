@@ -40,6 +40,12 @@ jobs:
       ##########################################################################
       ## 4 - Upload artifacts
       ##########################################################################
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Arcade-XSleenaCore_${{ steps.version.outputs.version }}
+          path: releases/
+          retention-days: 14
       ##########################################################################
       ## 5 - Create tag with version and SHA256 checksum
       ##########################################################################
